@@ -1,0 +1,20 @@
+.address-link a {
+    color: #5ca9a6;
+}
+
+h1 {
+    color: darkcyan;
+}
+
+.table {
+    font-size: 14px;
+}
+
+.table tbody tr:hover {
+
+    background-color: #effffd;
+}
+
+.alert-text{
+    color: red;
+}
