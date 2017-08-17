@@ -469,11 +469,11 @@ a:hover {
     height: 100%;
     overflow: auto;
 }
-.fadeout {
+/* .fadeout {
     height: 100%;
     overflow: auto;
     -webkit-mask-image: -webkit-gradient(linear, left 10%, left top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-}
+} */
 .past {
     color: #888;
 }
@@ -485,11 +485,11 @@ a:hover {
     width:100%;
     padding: 50px;
     position: relative;
-    -webkit-animation-delay: 2s; /* Safari 4.0 - 8.0 */
+    /* -webkit-animation-delay: 2s;
     animation-delay: 2s;
-    -ms-transform: translateY(-11%); /* IE 9 */
-    -webkit-transform: translateY(-11%); /* Chrome, Safari, Opera */
-    transform: translateY(-11%);
+    -ms-transform: translateY(-11%);
+    -webkit-transform: translateY(-11%);
+    transform: translateY(-11%); */
 }
 @media (max-width: 767px) {
     .timeline {
@@ -627,7 +627,9 @@ a:hover {
     background-color: rgba(0, 150, 99, 0.1);
 }
 .status-row.embedded {
-    margin-top: -23px;
+    /* margin-top: -23px; */
+    display: inline-block;
+    width: 100%;
 }
 .status-row.nobg {
     background: none;

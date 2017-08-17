@@ -40,7 +40,7 @@ $ethPrice = $priceResult['data']['amount'];
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.2/css/fixedHeader.bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/style2.css"/>
+    <link rel="stylesheet" href="css/style_dapp_mvp1.css"/>
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
@@ -162,7 +162,7 @@ $ethPrice = $priceResult['data']['amount'];
                                  <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></>
                                 <td class="address-link" data-order="<?php echo $row['balance']; ?>">
                                     $<?php echo number_format(($row['balance'] * $ethPrice), 0);?><br>
-                                    <a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>">Ξ<?php echo $row['balance']; ?></a></td>
+                                    <a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?></a></td>
                                 <td><?php echo $row['last_outgoing']; ?></td>
                                 <td><?php echo $row['tx_out']; ?></td>
                             </tr>
