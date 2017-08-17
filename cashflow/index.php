@@ -75,12 +75,19 @@ $ethPrice = $priceResult['data']['amount'];
             <ul class="sub-menu" id="products">
                 <li class="active"><a href="#" class="active">Projects Cash Flow</a></li>
             </ul>
+            <li>
+                <a href="signals.html"><i class="fa fa-th fa-md"></i> Signals </a>
+            </li>
+            <!--
             <li data-toggle="collapse" data-target="#service" class="collapsed">
-                <a href="#"><i class="fa fa-th fa-md"></i> Signals (tbd) </a>
+                <a href="signals.html"><i class="fa fa-th fa-md"></i> Signals (tbd) </a>
+            </li> -->
+            <li>
+              <a href="roadmap.html"><i class="fa fa-comment-o fa-md"></i> Roadmap </a>
             </li>
-            <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <a href="mailto://info@santiment.net"><i class="fa fa-comment-o fa-md"></i> Roadmap(tbd) </a>
-            </li>
+            <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
+                <a href="roadmap.html"><i class="fa fa-comment-o fa-md"></i> Roadmap(tbd) </a>
+            </li> -->
         </ul>
     </div>
 </div>
@@ -143,9 +150,7 @@ $ethPrice = $priceResult['data']['amount'];
                             <tr>
                                 <td><img src="img/<?php echo strtolower($row['logo_url']); ?>" /><?php echo $row['name'] ?> (<?php echo $row['ticker'] ?>) </td>
                                  <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></>
-                                <td class="address-link" sorttable_customkey=<?php
-                                    echo '"'. ($row['balance'] * $ethPrice) . '"';
-                                 ?>>
+                                <td class="address-link" data-order="<?php echo $row['balance']; ?>">
                                     $<?php echo number_format(($row['balance'] * $ethPrice), 0);?><br>
                                     <a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>">Ξ<?php echo $row['balance']; ?></a></td>
                                 <td><?php echo $row['last_outgoing']; ?></td>
@@ -161,11 +166,11 @@ $ethPrice = $priceResult['data']['amount'];
     </div>
 </div>
 <script>
-    
+
     $(document).ready(function () {
-        
+
         $('.table-hover').DataTable({
-            
+
             "dom": "<'row'<'col-sm-7'i><'col-sm-5'f>>" +
             "<'row'<'col-sm-12'tr>>" +
             "<'row'<'col-sm-5'><'col-sm-7'>>",
@@ -176,19 +181,17 @@ $ethPrice = $priceResult['data']['amount'];
                 searchPlaceholder: "Search"
             },
 	        "order": [[ 1, "desc" ]],
-		
+
             responsive: {
                 details: {
                     display: $.fn.dataTable.Responsive.display.childRowImmediate,
                     type: ''
                 }
             }
-            
+
         });
-        
+
     });
 </script>
 </body>
 </html>
-
-
