@@ -92,7 +92,7 @@ function getInternalTx($wallet)
         return $txData;
     } else {
         echo "API is down";
-        return "API is down";
+        throw new Exception("API is down");
     }
 
 }
@@ -131,7 +131,7 @@ function getOutgoingTx($wallet)
         return $txData;
     } else {
         echo "API is down";
-        return "API is down";
+        throw new Exception("API is down");
     }
 
 }
@@ -149,7 +149,7 @@ function getBalance($address)
         return $balance;
     } else {
         echo "API is down";
-        return "API is down";
+        throw new Exception("API is down");
     }
 }
 
