@@ -80,23 +80,24 @@ $ethPrice = $priceResult['data']['amount'];
                 </a>
             </li>
             <li data-toggle="collapse" data-target="#products" class="active">
-                <a href="#" class="active"><i class="fa fa-list fa-md"></i> Projects <span class="arrow"></span></a>
+                <a href="#" class="active"><i class="fa fa-list fa-md"></i> Data-feeds <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu" id="products">
-                <li class="active"><a href="#" class="active">Projects Cash Flow</a></li>
+                <li><a href="#">Overview (tbd)</a></li>
+                <li class="active"><a href="#" class="active">Cash Flow</a></li>
             </ul>
             <li>
                 <a href="signals.html"><i class="fa fa-th fa-md"></i> Signals </a>
             </li>
             <!--
             <li data-toggle="collapse" data-target="#service" class="collapsed">
-                <a href="signals.html"><i class="fa fa-th fa-md"></i> Signals (tbd) </a>
+                <a href="signals.html"><i class="fa fa-th fa-md"></i> Signals</a>
             </li> -->
             <li>
               <a href="roadmap.html"><i class="fa fa-comment-o fa-md"></i> Roadmap </a>
             </li>
             <!-- <li data-toggle="collapse" data-target="#new" class="collapsed">
-                <a href="roadmap.html"><i class="fa fa-comment-o fa-md"></i> Roadmap(tbd) </a>
+                <a href="roadmap.html"><i class="fa fa-comment-o fa-md"></i> Roadmap</a>
             </li> -->
         </ul>
     </div>
@@ -158,11 +159,12 @@ $ethPrice = $priceResult['data']['amount'];
                         $result = mysqli_query($conn, $sql);
                         while ($row = mysqli_fetch_assoc($result)) :?>
                             <tr>
-                                <td><img src="img/<?php echo strtolower($row['logo_url']); ?>" /><?php echo $row['name'] ?> (<?php echo $row['ticker'] ?>) </td>
-                                 <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></>
+                                <td><img src="img/<?php echo strtolower($row['logo_url']); ?>" /><?php echo $row['name'] ?> (<?php echo $row['ticker'] ?>)</td>
+                                <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></td>
                                 <td class="address-link" data-order="<?php echo $row['balance']; ?>">
                                     $<?php echo number_format(($row['balance'] * $ethPrice), 0);?><br>
-                                    <a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?></a></td>
+                                    <a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?></a>
+                                </td>
                                 <td><?php echo $row['last_outgoing']; ?></td>
                                 <td><?php echo $row['tx_out']; ?></td>
                             </tr>

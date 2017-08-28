@@ -7,22 +7,27 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #efefef;
-    font: 15px/1.6 "Roboto", sans-serif;
+    font: 14px/1.6 "Roboto", sans-serif;
     font-weight: 400;
     color: #3D4051;
     width: 100%;
     height: 100%;
 }
 
+table {
+    width: 100%;
+}
+
 .table th {
     border-top: none;
 }
-.table-responsive {
-    min-height: .01%;
-    overflow-x: auto;
-}
-.table tr.new {
-    background-color: #f2fcfd !important;
+
+.table-hover tr {
+    -o-transition: background 0.25s ease-in;
+    -ms-transition: background 0.25s ease-in;
+    -moz-transition: background 0.25s ease-in;
+    -webkit-transition: background 0.25s ease-in;
+    transition: background 0.25s ease-in;
 }
 .table-hover tr:hover {
     /* background-color: #f2fcfd !important; */
@@ -64,6 +69,11 @@ html, body {
 table.dataTable>tbody>tr.child {
     background-color: #f4f4f4;
 }
+@media (max-width: 767px) {
+    table.dataTable>tbody>tr.child {
+        font-size: 13px;
+    }
+}
 table.dataTable>tbody>tr.child span.dtr-title {
     min-width: 140px;
 }
@@ -73,15 +83,17 @@ table.dataTable>tbody>tr.child ul.dtr-details li {
 }
 table.dataTable thead th,
 table.dataTable tbody th {
-    padding: .7rem .5rem;
+    padding: 10px;
     white-space: nowrap;
     font-size: 13px;
 }
 .table-condensed td,
 table.dataTable tbody td {
-    padding: .5rem;
+    padding: 10px;
     white-space: nowrap;
     vertical-align: top;
+    /* border-bottom: 1px solid rgba(0,0,0,0.08); */
+    border-top: 1px solid rgba(0,0,0,0.12);
 }
 @media (max-width: 767px) {
     .table-condensed td {
@@ -97,6 +109,10 @@ table.dataTable tbody td {
 }
 td.project-link a {
     color: #3D4051;
+}
+
+table.dataTable tbody tr table tr {
+    background: none;
 }
 .up {
     display: inline-block;
@@ -171,13 +187,30 @@ td.wallet i {
 table.dataTable thead .sorting {
     background-image: none;
 }
+a.address i {
+    font-size: 75%;
+    display: inline-block;
+    /* margin-right: 3px; */
+    margin-left: 3px;
+}
 @media (max-width: 767px) {
     a.address {
-        display: block;
-        margin-left: 144px;
+        /* display: block; */
+        /* margin-left: 144px; */
+    }
+    a.address i {
+        /* float: right; */
+        /* margin-right: 0; */
+        /* margin-top: 8px; */
     }
 }
-/* .usd {
+
+@media (max-width: 767px) {
+    .wallet {
+        display: inline;
+    }
+}
+.usd {
     width: 50%;
     float: left;
     text-align: right;
@@ -190,10 +223,27 @@ table.dataTable thead .sorting {
 @media (max-width: 767px) {
     .usd,
     .eth {
-        width: 100%;
         float: none;
+        text-align: left;
+        width: inherit;
     }
-} */
+    .usd {
+        display: inline;
+        margin-left: 144px;
+    }
+    .usd.first {
+        margin-left: 0;
+    }
+    .usd.multi {
+        margin-left: 144px;
+    }
+    .eth {
+        margin-left: 144px;
+    }
+    .eth.multi {
+        margin-bottom: 4px;
+    }
+}
 
 
 
@@ -401,6 +451,7 @@ a:hover {
     }
     .panel {
         margin: 16px 0;
+        padding: 8px;
     }
     .narrow {
         padding: 20px 0;
@@ -408,13 +459,27 @@ a:hover {
 }
 
 .community-actions {
-    padding-top: 24px;
+    padding-top: 18px;
     padding-right: 36px;
     text-align: right;
+}
+.community-actions span {
+    position: relative;
+    top: 50%;
+    -webkit-transform: perspective(1px) translateY(-50%);
+    -ms-transform: perspective(1px) translateY(-50%);
+    transform: perspective(1px) translateY(-50%);
+}
+.legal {
+    font-size: 12px;
 }
 @media (max-width:767px) {
     .community-actions {
         text-align: left;
+        padding-top: 0;
+    }
+    .community-actions span {
+        top: 0;
     }
 }
 
@@ -461,14 +526,14 @@ a:hover {
 
 /* roadmap */
 
-/* .vert-stretch {
+.vert-stretch {
     height: 96%;
     overflow: auto;
 }
 .vert-full {
     height: 100%;
     overflow: auto;
-} */
+}
 /* .fadeout {
     height: 100%;
     overflow: auto;
@@ -485,11 +550,11 @@ a:hover {
     width:100%;
     padding: 50px;
     position: relative;
-    /* -webkit-animation-delay: 2s;
-    animation-delay: 2s;
-    -ms-transform: translateY(-11%);
-    -webkit-transform: translateY(-11%);
-    transform: translateY(-11%); */
+    /*  -webkit-animation-delay: 2s;
+     animation-delay: 2s;
+     -ms-transform: translateY(-11%);
+     -webkit-transform: translateY(-11%);
+     transform: translateY(-11%); */
 }
 @media (max-width: 767px) {
     .timeline {
@@ -512,10 +577,10 @@ a:hover {
     }
 }
 .timeline:after {
-     content: "";
-     display: table;
-     clear: both;
- }
+    content: "";
+    display: table;
+    clear: both;
+}
 
 .entry {
     clear: both;
@@ -564,17 +629,17 @@ a:hover {
     z-index: 99;
 }
 .entry.future .title:before {
-     content: '';
-     position: absolute;
-     width: 16px;
-     height: 16px;
-     border: 4px solid salmon;
-     background-color:#fff;
-     border-radius:100%;
-     top: 15%;
-     right: -8px;
-     z-index: 99;
- }
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 4px solid salmon;
+    background-color:#fff;
+    border-radius:100%;
+    top: 15%;
+    right: -8px;
+    z-index: 99;
+}
 @media (max-width: 767px) {
     .entry.past .title:before,
     .entry.present .title:before,
@@ -611,8 +676,8 @@ a:hover {
     line-height: 1.4em;
 }
 .body:first-child {
-     margin-top: 0;
-     font-weight: 400;
+    margin-top: 0;
+    font-weight: 400;
 }
 
 
@@ -627,9 +692,7 @@ a:hover {
     background-color: rgba(0, 150, 99, 0.1);
 }
 .status-row.embedded {
-    /* margin-top: -23px; */
-    display: inline-block;
-    width: 100%;
+    margin-top: -23px;
 }
 .status-row.nobg {
     background: none;
@@ -708,6 +771,8 @@ li {
 }
 
 
+
+
 /* mailchimp, signals */
 .signals-form {
     text-align: center;
@@ -724,41 +789,41 @@ li {
     animation: AnimationName 60s ease infinite;
 }
 
-    @-webkit-keyframes AnimationName {
-        0% {
-            background-position: 0% 50%
-        }
-        50% {
-            background-position: 100% 50%
-        }
-        100% {
-            background-position: 0% 50%
-        }
+@-webkit-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
     }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
 
-    @-moz-keyframes AnimationName {
-        0% {
-            background-position: 0% 50%
-        }
-        50% {
-            background-position: 100% 50%
-        }
-        100% {
-            background-position: 0% 50%
-        }
+@-moz-keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
     }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
 
-    @keyframes AnimationName {
-        0% {
-            background-position: 0% 50%
-        }
-        50% {
-            background-position: 100% 50%
-        }
-        100% {
-            background-position: 0% 50%
-        }
+@keyframes AnimationName {
+    0% {
+        background-position: 0% 50%
     }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0% 50%
+    }
+}
 
 .signals-form h2 {
     color: #fff;
