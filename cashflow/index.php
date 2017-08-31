@@ -160,10 +160,10 @@ $ethPrice = $priceResult['data']['amount'];
                         while ($row = mysqli_fetch_assoc($result)) :?>
                             <tr>
                                 <td><img src="img/<?php echo strtolower($row['logo_url']); ?>" /><?php echo $row['name'] ?> (<?php echo $row['ticker'] ?>)</td>
-                                <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?><i class="fa fa-external-link"></i></td>
+                                <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></td>
                                 <td class="address-link" data-order="<?php echo $row['balance']; ?>">
                                     $<?php echo number_format(($row['balance'] * $ethPrice), 0);?><br>
-                                    <a target="_blank" class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?></a>
+                                    <a target="_blank" class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?><i class="fa fa-external-link"></i></a>
                                 </td>
                                 <td><?php echo $row['last_outgoing']; ?></td>
                                 <td><?php echo $row['tx_out']; ?></td>
