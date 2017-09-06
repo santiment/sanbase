@@ -1,0 +1,21 @@
+{
+  "tunnel": {
+    "driver": "pg",
+    "user": {"ENV": "SANBASE_PGUSER"},
+    "password": {"ENV": "SANBASE_PGPASSWORD"},
+    "host": "localhost",
+    "port": {"ENV": "TUNNEL_PGPORT"},
+    "database": {"ENV": "SANBASE_PGDATABASE"},
+    "schema": "sanbase"
+  },
+
+  "prod": {
+    "driver": "pg",
+    "user": {"ENV": "SANBASE_PGUSER"},
+    "password": {"ENV": "SANBASE_PGPASSWORD"},
+    "host": {"ENV": "SANBASE_PGHOST"},
+    "port": {"ENV": "SANBASE_PGPORT"},
+    "database": {"ENV": "SANBASE_PGDATABASE"},
+    "schema": "sanbase"
+  }
+}
