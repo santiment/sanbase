@@ -130,6 +130,8 @@ $ethPrice = $priceResult['data']['amount'];
             <h1>Cash Flow</h1>
         </div>
         <div class="col-lg-7 community-actions">
+            <span class="legal">NOTE: This app is a prototype. We give no guarantee data is correct as we are in active development.</span>
+
             <!-- <a class="btn-secondary" href="#"><i class="fa fa-pencil"></i></a> -->
             <!-- <a class="btn-primary" href="#">Supply ICO Wallet</a> -->
             <!-- <select style="width: 100px; height: 40px;">
@@ -162,8 +164,10 @@ $ethPrice = $priceResult['data']['amount'];
                                 <td><img src="img/<?php echo strtolower($row['logo_url']); ?>" /><?php echo $row['name'] ?> (<?php echo $row['ticker'] ?>)</td>
                                 <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></td>
                                 <td class="address-link" data-order="<?php echo $row['balance']; ?>">
-                                    $<?php echo number_format(($row['balance'] * $ethPrice), 0);?><br>
-                                    <a target="_blank" class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?><i class="fa fa-external-link"></i></a>
+                                    <div class="wallet">
+                                        <div class="usd first"><?php echo number_format(($row['balance'] * $ethPrice), 0);?></div>
+                                        <div class="eth"><a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?><i class="fa fa-external-link"></i></a></div>
+                                    </div>
                                 </td>
                                 <td><?php echo $row['last_outgoing']; ?></td>
                                 <td><?php echo $row['tx_out']; ?></td>
