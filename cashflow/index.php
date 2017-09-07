@@ -165,7 +165,7 @@ $ethPrice = $priceResult['data']['amount'];
                                 <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></td>
                                 <td class="address-link" data-order="<?php echo $row['balance']; ?>">
                                     <div class="wallet">
-                                        <div class="usd first"><?php echo number_format(($row['balance'] * $ethPrice), 0);?></div>
+                                        <div class="usd first">$<?php echo number_format(($row['balance'] * $ethPrice), 0);?></div>
                                         <div class="eth"><a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?><i class="fa fa-external-link"></i></a></div>
                                     </div>
                                 </td>
