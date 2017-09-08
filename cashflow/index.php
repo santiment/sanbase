@@ -130,7 +130,9 @@ $ethPrice = $priceResult['data']['amount'];
             <h1>Cash Flow</h1>
         </div>
         <div class="col-lg-7 community-actions">
-            <span class="legal">NOTE: This app is a prototype. We give no guarantee data is correct as we are in active development.</span>
+             <span class="legal">brought to you by <a href="https://santiment.net" target="_blank">Santiment</a>
+             <br />
+             NOTE: This app is a prototype. We give no guarantee data is correct as we are in active development.</span>
 
             <!-- <a class="btn-secondary" href="#"><i class="fa fa-pencil"></i></a> -->
             <!-- <a class="btn-primary" href="#">Supply ICO Wallet</a> -->
