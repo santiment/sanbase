@@ -1,13 +1,14 @@
 /* styles for first pass cashflow, project & token sale lists */
 /* kc 07-19-17 */
 
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+/* @import url("https://fonts.googleapis.com/css?family=Roboto"); */
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #efefef;
-    font: 14px/1.6 "Roboto", sans-serif;
+    background-color: #e5e5e5;
+    font: 14px/1.6 "Source+Sans+Pro", sans-serif;
     font-weight: 400;
     color: #3D4051;
     width: 100%;
@@ -487,7 +488,7 @@ a:hover {
     border: none;
     border-radius: 20px;
     padding: 8px 11px;
-    font-family: 'Roboto';
+    font-family: 'Source+Sans+Pro';
     text-transform: uppercase;
     letter-spacing: 1px;
     background-color: #009663;
@@ -508,7 +509,7 @@ a:hover {
     border: none;
     border-radius: 20px;
     padding: 8px 11px;
-    font-family: 'Roboto';
+    font-family: 'Source+Sans+Pro';
     text-transform: uppercase;
     letter-spacing: 1px;
     background-color: #8BC34A;
@@ -526,6 +527,7 @@ a:hover {
 
 /* roadmap */
 
+/* these are creating multiple scrollbars in windows
 .vert-stretch {
     height: 96%;
     overflow: auto;
@@ -534,7 +536,7 @@ a:hover {
     height: 100%;
     overflow: auto;
 }
-/* .fadeout {
+.fadeout {
     height: 100%;
     overflow: auto;
     -webkit-mask-image: -webkit-gradient(linear, left 10%, left top, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
@@ -692,7 +694,11 @@ a:hover {
     background-color: rgba(0, 150, 99, 0.1);
 }
 .status-row.embedded {
-    margin-top: -23px;
+    /* margin-top: -23px; this messes up spacing in FF */
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    margin-top: 4px;
 }
 .status-row.nobg {
     background: none;
