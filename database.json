@@ -1,4 +1,13 @@
 {
+  "dev": {
+    "driver": "pg",
+    "user": "sanbase",
+    "password": "sanbase",
+    "host": {"ENV":"DEVBOX_IP"},
+    "port": 5432,
+    "database": "postgres",
+    "shema": "sanbase"
+  },
   "tunnel": {
     "driver": "pg",
     "user": {"ENV": "SANBASE_PGUSER"},
