@@ -60,9 +60,9 @@ can use to access the machine. Create a file called `.env` in the root
 folder of the repository and add the following line there:
 
 ``` sh
-DEVBOX_IP=XXX
+DEVBOX_IP=XXX.XXX.XXX.XXX
 ```
-where XXX is the IP address
+where XXX.XXX.XXX.XXX is the IP address
 
 8. Install node.js and yarn
 9. In the root folder of the repository run 
@@ -72,10 +72,10 @@ $ yarn install
 $ ./node_modules/.bin/db-migrate up
 ```
 
-After this you can access the Sanbase at URL http://XXX/cashflow
-(replace XXX with the VM's IP address). Any edits of the html or php
+After this you can access the Sanbase at URL http://XXX.XXX.XXX.XXX/cashflow
+(replace XXX.XXX.XXX.XXX with the VM's IP address). Any edits of the html or php
 files of the repository should be immediately visible. You can access
-the database at XXX:5432. The database's name is "postgres", schema
+the database at XXX.XXX.XXX.XXX:5432. The database's name is "postgres", schema
 "sanbase", user "sanbase", password "sanbase".
 
 The virtual machine configuration is contained in the files
