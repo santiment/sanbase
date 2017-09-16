@@ -5,25 +5,12 @@ Instalation
 -----------
 
 These are the installation instructions how to install the Sanbase
-development environment. Right now we only support OSX and Linux host
-machines:
+development environment. 
 
-1. Install Nix (if you are not using NixOS)
 
-``` sh
-curl https://nixos.org/nix/install | sh
+1. Install Vagrant and VirtualBox
 
-```
-
-2. Install NixOps
-
-``` sh
-nix-env -i nixops
-```
-
-3. Install VirtualBox
-
-4. Clone this repository
+2. Clone this repository and create a vagrant virtual machine
 
 ``` sh
 $ mkdir ~/santiment
@@ -31,62 +18,43 @@ $ cd santiment
 $ git clone git@github.com:santiment/sanbase.git
 $ cd sanbase
 
+$ vagrant up --provision
+
 ```
 
-5. Create the development VM
+After the command finishes you will have a virtual machine hosting the
+Sanbase. You can test it by visiting http://192.168.33.10/cashflow/static.html
 
-``` sh
-nixops create -d devbox ./devbox.nix ./devbox-vbox.nix
-```
+3. Set up migrations
 
-The virtual machine settings are in the file `devbox-vbox.nix`. You
-can change them as you see fit.
-
-6. Deploy the VM
-
-``` sh
-nixops deploy -d devbox
-```
-
-On my machine (Tzanko) this command exits with an error due to some
-problem with Virtualbox. To fix the error startthe Virtualbox UI, then
-start and stop the machine from there. After that run again `nixops
-deploy -d devbox` and it should work.
-
-7. Set up IP
-
-In the output of the last command you will see an IP address which you
-can use to access the machine. Create a file called `.env` in the root
+3.1. Create a file called `.env` in the root
 folder of the repository and add the following line there:
 
 ``` sh
-DEVBOX_IP=XXX.XXX.XXX.XXX
+DEVBOX_IP=192.168.33.10
 ```
-where XXX.XXX.XXX.XXX is the IP address
 
-8. Install node.js and yarn
-9. In the root folder of the repository run 
+3.2. Install node.js and yarn
+3.3. In the root folder of the repository run 
 
 ``` sh
 $ yarn install
 $ ./node_modules/.bin/db-migrate up
 ```
 
-After this you can access the Sanbase at URL http://XXX.XXX.XXX.XXX/cashflow
-(replace XXX.XXX.XXX.XXX with the VM's IP address). Any edits of the html or php
+After this you can access the Sanbase at URL
+http://192.168.33.10/cashflow/static.html Any edits of the html or php
 files of the repository should be immediately visible. You can access
-the database at XXX.XXX.XXX.XXX:5432. The database's name is "postgres", schema
-"sanbase", user "sanbase", password "sanbase".
+the database at 192.168.33.10:5432. The database's name is
+"postgres", schema "sanbase", user "sanbase", password "sanbase".
 
-The virtual machine configuration is contained in the files
-`devbox.nix` and `devbox-vbox.nix`. If you edit anything there you
-have to redeploy by running
+The virtual machine configuration is contained in the file
+`devbox.nix`. If you edit anything there you
+have to run provisioning again by calling
 
 ``` sh
-$ nixops deploy -d devbox
+$ vagrant provision
 ```
-
-(This command can be run from anywhere.)
 
 
 Migrations

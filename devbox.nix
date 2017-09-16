@@ -1,14 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{
-  devbox = { config, pkgs, ... }:
+{ config, pkgs, ... }:
   let
     fcgiSocket = "/run/phpfpm/nginx";
     user = "sanbase";
     group = "sanbase";
-    rootFolder = "/var/www/sanbase";
+    rootFolder = "/vagrant";
   in  
   {
 
@@ -60,7 +55,7 @@
       useDefaultShell = true;
       uid = 1000;
       group = "${group}";
-      home = "/var/www";
+      home = "/vagrant";
       createHome = true;
     };
 
@@ -162,6 +157,4 @@
     # The NixOS release to be compatible with for stateful data such as databases.
     system.stateVersion = "17.09";
 
-  };
-
-}  
+  }
