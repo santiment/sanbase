@@ -6,13 +6,6 @@
  * Time: 15:46
  */
 
-// The original mysql settings
-// $servername = "localhost";
-// $username = "cashflow";
-// $password = "cashfl0wtest";
-// $database = "cashflow";
-
-//TODO: for now we use these settings for the dev environment. Maybe we should change them as above
 $servername = "localhost";
 $username = "sanbase";
 $password = "sanbase";
