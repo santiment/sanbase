@@ -27,9 +27,9 @@
 
     # Sudo
     # Set timeout to 30 minutes
-    security.sudo.extraConfig = ''
-    Defaults    timestamp_timeout=30
-    '';
+    #security.sudo.extraConfig = ''
+    #Defaults    timestamp_timeout=30
+    #'';
 
     # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [22 80 443 ];
