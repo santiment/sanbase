@@ -6,16 +6,24 @@
  * Time: 15:46
  */
 
+// The original mysql settings
+// $servername = "localhost";
+// $username = "cashflow";
+// $password = "cashfl0wtest";
+// $database = "cashflow";
+
+//TODO: for now we use these settings for the dev environment. Maybe we should change them as above
 $servername = "localhost";
-$username = "cashflow";
-$password = "cashfl0wtest";
+$username = "sanbase";
+$password = "sanbase";
+$database = "postgres";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, 'cashflow');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$conn_string = "host=".$servername." dbname=". $database ." user=".$username." password=".$password;
+$conn = pg_connect($conn_string);
+if (!$conn) {
+    $error = error_get_last();
+    die("Connection failed: " . $error["message"]);
 }
 
 
@@ -29,20 +37,20 @@ $result = array_reverse($result);
 
 foreach($result as $r){
     //check if ticker is in table
-    $sql = 'SELECT * from cmm_data where ticker="' . $r['symbol'] . '"';
-    $result = mysqli_query($conn, $sql);
-    if($result->num_rows === 0){
+    $sql = "SELECT * from cmm_data where ticker='" . $r['symbol'] . "'";
+    $result = pg_query($conn, $sql);
+    if(pg_num_rows($result) === 0){
         //echo "Inserting ticker ".$r['symbol']."\n";
-        $sql = 'INSERT INTO cmm_data (ticker,market_cap,price_usd) VALUES ("'.$r['symbol'].'", "'.$r['market_cap_usd'].'","'.$r['price_usd'].'")';
+        $sql = "INSERT INTO cmm_data (ticker,market_cap,price_usd,active) VALUES ('".$r['symbol']."', '".$r['market_cap_usd']."','".$r['price_usd']."', 1)";
     }
     else
     {
         //echo "Updating ticker ".$r['symbol']."\n";
-        $sql = 'UPDATE  cmm_data SET market_cap = ' . $r['market_cap_usd'] . ' , price_usd= '.$r['price_usd'].'  WHERE ticker = "'.$r['symbol'].'"';
+        $sql = "UPDATE  cmm_data SET market_cap = " . $r['market_cap_usd'] . " , price_usd= ".$r['price_usd']."  WHERE ticker = '".$r['symbol']."'";
     }
     echo $sql;
     echo "\n";
-    mysqli_query($conn, $sql);
+    pg_query($conn, $sql);
 }
 
 

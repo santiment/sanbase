@@ -6,7 +6,7 @@
     "host": {"ENV":"DEVBOX_IP"},
     "port": 5432,
     "database": "postgres",
-    "shema": "sanbase"
+    "schema": "sanbase"
   },
   "tunnel": {
     "driver": "pg",
