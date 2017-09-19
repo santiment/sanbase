@@ -39,16 +39,25 @@ $whaleWallets = [
 $exchangeWallets = [
     ['0x7727E5113D1d161373623e5f49FD568B4F543a9E', 'Bitfinex_Wallet2']
 ];
+
+// The original mysql settings
+// $servername = "localhost";
+// $username = "cashflow";
+// $password = "cashfl0wtest";
+// $database = "cashflow";
+
+//TODO: for now we use these settings for the dev environment. Maybe we should change them as above
 $servername = "localhost";
-$username = "cashflow";
-$password = "cash2000";
+$username = "sanbase";
+$password = "sanbase";
+$database = "postgres";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, 'cashflow');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$conn_string = "host=".$servername." dbname=". $database ." user=".$username." password=".$password;
+$conn = pg_connect($conn_string);
+if (!$conn) {
+    $error = error_get_last();
+    die("Connection failed: " . $error["message"]);
 }
 
 /**
@@ -146,23 +155,25 @@ foreach ($whaleWallets as $k => $wa) :
     $lastOutBalance = $outgoingTx['value'];
     $lastOutDate = $outgoingTx['date'];
 
-    $sql = 'INSERT INTO wallet_data (name, address,	balance, last_incoming,last_outgoing, tx_out, tx_in,ticker,update_date) VALUES
-    ("'.$walletName.'",
-    "'.$walletAddress.'",
-    '. $balance . ',
-  "'.$lastInDate.'",
-  "'.$lastOutDate.'",
-  '.$lastOutBalance.',
-  '. $lastInBalance.',
-  "'.$ticker.'",
-  NOW()
-   )';
+    $sql = "INSERT INTO wallet_data (name, address,	balance, last_incoming,last_outgoing, tx_out, tx_in,ticker,update_date,logo_url,active) VALUES
+    ('".$walletName."',
+    '".$walletAddress."',
+    ". $balance . ",
+  '".$lastInDate."',
+  '".$lastOutDate."',
+  ".$lastOutBalance.",
+  ". $lastInBalance.",
+  '".$ticker."',
+  NOW(),
+  '".strtolower($walletName).".png',
+  1
+   )";
 
 
 
   //  $sql = 'UPDATE  wallet_data  SET balance = "'.$balance.'"  , last_incoming = "'.$lastInDate.'" , last_outgoing = "'.$lastOutDate.'",  tx_out =  "'.$lastOutBalance.'" , tx_in =  "'.$lastInBalance.'", update_date=NOW() WHERE address = "'.$walletAddress.'"';
     echo $sql;
-    mysqli_query($conn, $sql);
+    pg_query($conn, $sql);
     ?>
 
 <?php endforeach; ?>

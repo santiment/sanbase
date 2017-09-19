@@ -4,16 +4,25 @@
 $exchangeWallets = [
     ['0x7727E5113D1d161373623e5f49FD568B4F543a9E', 'Bitfinex_Wallet2']
 ];
+
+// The original mysql settings
+// $servername = "localhost";
+// $username = "cashflow";
+// $password = "cashfl0wtest";
+// $database = "cashflow";
+
+//TODO: for now we use these settings for the dev environment. Maybe we should change them as above
 $servername = "localhost";
-$username = "cashflow";
-$password = "cashfl0wtest";
+$username = "sanbase";
+$password = "sanbase";
+$database = "postgres";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, 'cashflow');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$conn_string = "host=".$servername." dbname=". $database ." user=".$username." password=".$password;
+$conn = pg_connect($conn_string);
+if (!$conn) {
+    $error = error_get_last();
+    die("Connection failed: " . $error["message"]);
 }
 
 setlocale(LC_MONETARY, 'en_US');
@@ -159,9 +168,9 @@ $ethPrice = $priceResult['data']['amount'];
                         </thead>
                         <tbody class='whaletable'>
                         <?php
-                        $sql = 'SELECT * FROM `wallet_data`, `cmm_data`  WHERE wallet_data.ticker = cmm_data.ticker AND cmm_data.active =1';
-                        $result = mysqli_query($conn, $sql);
-                        while ($row = mysqli_fetch_assoc($result)) :?>
+                        $sql = 'SELECT * FROM wallet_data, cmm_data  WHERE wallet_data.ticker = cmm_data.ticker AND cmm_data.active =1';
+                        $result = pg_query($conn, $sql);
+                        while ($row = pg_fetch_assoc($result)) :?>
                             <tr>
                                 <td><img src="img/<?php echo strtolower($row['logo_url']); ?>" /><?php echo $row['name'] ?> (<?php echo $row['ticker'] ?>)</td>
                                 <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></td>

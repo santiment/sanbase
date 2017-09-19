@@ -39,16 +39,19 @@
 $exchangeWallets = [
     ['0x7727E5113D1d161373623e5f49FD568B4F543a9E', 'Bitfinex_Wallet2']
 ];
+
+//TODO: for now we use these settings for the dev environment. Maybe we should change them as above
 $servername = "localhost";
-$username = "cashflow";
-$password = "cashfl0wtest";
+$username = "sanbase";
+$password = "sanbase";
+$database = "postgres";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, 'cashflow');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$conn_string = "host=".$servername." dbname=". $database ." user=".$username." password=".$password;
+$conn = pg_connect($conn_string);
+if (!$conn) {
+    $error = error_get_last();
+    die("Connection failed: " . $error["message"]);
 }
 
 //Set timezone
@@ -62,8 +65,13 @@ function getWallets($conn)
 {
     $wallets = [];
     $sql = "SELECT address, name, ticker FROM wallet_data";
-    $result = mysqli_query($conn, $sql);
-    $wallets = $result->fetch_all(MYSQLI_NUM);
+    $result = pg_query($conn, $sql);
+
+    while ($row = pg_fetch_array($result, NULL, PGSQL_NUM))
+    {
+        $wallets[] = $row;
+    }
+
     return $wallets;
 }
 
@@ -183,11 +191,9 @@ foreach ($whaleWallets as $k => $wa) :
 //  NOW()
 //   )';
 
-
-
-    $sql = 'UPDATE  wallet_data  SET balance = "'.$balance.'"  , last_incoming = "'.$lastInDate.'" , last_outgoing = "'.$lastOutDate.'",  tx_out =  "'.$lastOutBalance.'" , tx_in =  "'.$lastInBalance.'", update_date=NOW() WHERE address = "'.$walletAddress.'"';
+    $sql = "UPDATE  wallet_data  SET balance = '".$balance."'  , last_incoming = '".$lastInDate."' , last_outgoing = '".$lastOutDate."',  tx_out =  '".$lastOutBalance."' , tx_in =  ".$lastInBalance.", update_date=NOW() WHERE address = '".$walletAddress."'";
     echo $sql;
-    mysqli_query($conn, $sql);
+    pg_query($conn, $sql);
     ?>
 
 <?php endforeach; ?>
