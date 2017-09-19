@@ -40,7 +40,6 @@ $exchangeWallets = [
     ['0x7727E5113D1d161373623e5f49FD568B4F543a9E', 'Bitfinex_Wallet2']
 ];
 
-//TODO: for now we use these settings for the dev environment. Maybe we should change them as above
 $servername = "localhost";
 $username = "sanbase";
 $password = "sanbase";
