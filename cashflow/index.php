@@ -1,14 +1,22 @@
 <?php
 
+function debug_to_console( $data ) {
+    $output = $data;
+    if ( is_array( $output ) )
+        $output = implode( ',', $output);
+
+    echo "<script>console.log( 'Debug Objects: " . $output . "' );</script>";
+}
+
 //For the future, add more exchange wallets
 $exchangeWallets = [
     ['0x7727E5113D1d161373623e5f49FD568B4F543a9E', 'Bitfinex_Wallet2']
 ];
 
-$servername = "localhost";
-$username = "sanbase";
-$password = "sanbase";
-$database = "postgres";
+$servername = getenv("DB_SERVER");
+$database = getenv("DB_DATABASE");
+$username = getenv("DB_USER");
+$password = getenv("DB_PASSWORD");
 
 // Create connection
 $conn_string = "host=".$servername." dbname=". $database ." user=".$username." password=".$password;

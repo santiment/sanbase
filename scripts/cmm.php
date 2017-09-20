@@ -6,10 +6,10 @@
  * Time: 15:46
  */
 
-$servername = "localhost";
-$username = "sanbase";
-$password = "sanbase";
-$database = "postgres";
+ $servername = getenv("DB_SERVER");
+ $database = getenv("DB_DATABASE");
+ $username = getenv("DB_USER");
+ $password = getenv("DB_PASSWORD");
 
 // Create connection
 $conn_string = "host=".$servername." dbname=". $database ." user=".$username." password=".$password;

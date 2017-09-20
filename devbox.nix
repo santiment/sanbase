@@ -110,6 +110,10 @@
       pm = ondemand
       pm.max_children = 2
       catch_workers_output = true
+      env[DB_SERVER] = localhost
+      env[DB_DATABASE] = postgres
+      env[DB_USER] = sanbase
+      env[DB_PASSWORD] = sanbase
     '';
 
           
