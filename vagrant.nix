@@ -4,6 +4,6 @@
   imports = [
     ./vagrant-hostname.nix
     ./vagrant-network.nix
-    /vagrant/devbox.nix
+    ./vagrant-provision.nix
   ];
 }

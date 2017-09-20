@@ -35,6 +35,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
+  
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network"
@@ -76,9 +77,12 @@ Vagrant.configure("2") do |config|
   # SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
-    nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+    nix-channel --add https://nixos.org/channels/nixos-17.09
+ nixos
     nix-channel --update
     cp /vagrant/vagrant.nix /etc/nixos
+    cp /vagrant/vagrant-provision.nix /etc/nixos
+    
     nixos-rebuild switch -Q
     nix-collect-garbage -d
   SHELL
