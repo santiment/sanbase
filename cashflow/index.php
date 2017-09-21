@@ -163,10 +163,20 @@ $ethPrice = $priceResult['data']['amount'];
                         <?php
                         $sql = 'SELECT * FROM wallet_data, cmm_data  WHERE wallet_data.ticker = cmm_data.ticker AND cmm_data.active =1';
                         $result = pg_query($conn, $sql);
-                        while ($row = pg_fetch_assoc($result)) :?>
+                        while ($row = pg_fetch_assoc($result)) :
+                            $market_cap = $row['market_cap'];
+                            if($market_cap !== null)
+                            {
+                                $market_cap = "$".number_format($market_cap,0);
+                            }
+                            else
+                            {
+                                $market_cap = "No data";
+                            }
+                            ?>
                             <tr>
                                 <td><img src="img/<?php echo strtolower($row['logo_url']); ?>" /><?php echo $row['name'] ?> (<?php echo $row['ticker'] ?>)</td>
-                                <td class="marketcap">$<?php echo number_format($row['market_cap'],0); ?></td>
+                                <td class="marketcap"><?php echo $market_cap; ?></td>
                                 <td class="address-link" data-order="<?php echo $row['balance']; ?>">
                                     <div class="wallet">
                                         <div class="usd first">$<?php echo number_format(($row['balance'] * $ethPrice), 0);?></div>

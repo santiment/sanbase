@@ -32,14 +32,27 @@ foreach($result as $r){
     //check if ticker is in table
     $sql = "SELECT * from cmm_data where ticker='" . $r['symbol'] . "'";
     $result = pg_query($conn, $sql);
+
+    $market_cap = $r['market_cap_usd'];
+    if($market_cap === null || $market_cap === '')
+    {
+        $market_cap = 'null';
+    }
+
+    $price_usd = $r['price_usd'];
+    if($price_usd === null || $price_usd === '')
+    {
+        $price_usd = 'null';
+    }
+
     if(pg_num_rows($result) === 0){
         //echo "Inserting ticker ".$r['symbol']."\n";
-        $sql = "INSERT INTO cmm_data (ticker,market_cap,price_usd,active) VALUES ('".$r['symbol']."', '".$r['market_cap_usd']."','".$r['price_usd']."', 1)";
+        $sql = "INSERT INTO cmm_data (ticker,market_cap,price_usd,active) VALUES ('".$r['symbol']."', ".$market_cap.",".$price_usd.", 1)";
     }
     else
     {
         //echo "Updating ticker ".$r['symbol']."\n";
-        $sql = "UPDATE  cmm_data SET market_cap = " . $r['market_cap_usd'] . " , price_usd= ".$r['price_usd']."  WHERE ticker = '".$r['symbol']."'";
+        $sql = "UPDATE  cmm_data SET market_cap = " . $market_cap . " , price_usd= ".$price_usd."  WHERE ticker = '".$r['symbol']."'";
     }
     echo $sql;
     echo "\n";
