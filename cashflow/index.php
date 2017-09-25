@@ -1,5 +1,4 @@
 <?php
-
 //For the future, add more exchange wallets
 $exchangeWallets = [
     ['0x7727E5113D1d161373623e5f49FD568B4F543a9E', 'Bitfinex_Wallet2']
@@ -28,14 +27,17 @@ function getAllByName($name)
     global $conn;
     $sql = "SELECT * FROM wallet_data WHERE name='$name'";
     $result = pg_query($conn, $sql);
+    $count = 0;
     while ($row = pg_fetch_assoc($result)) {
-        if(!array_key_exists($wallets[$row['name']], $wallets )){
-        $wallets[$row['name']][] = $row['address'];
-            }
-     }
+        $ticker = $row['name'];
+        $wallets[$ticker][$count]['address'] = $row['address'];
+        $wallets[$ticker][$count]['balance'] = $row['balance'];
+        $count++;
+    }
 
     return $wallets;
 }
+
 setlocale(LC_MONETARY, 'en_US');
 
 $ethPrice = 0;
@@ -179,7 +181,7 @@ $ethPrice = $priceResult['data']['amount'];
                         </thead>
                         <tbody class='whaletable'>
                         <?php
-                        $sql = 'SELECT * FROM wallet_data, cmm_data  WHERE wallet_data.ticker = cmm_data.ticker AND cmm_data.active =1';
+                        $sql = 'SELECT DISTINCT ON(wallet_data.name) * FROM wallet_data, cmm_data  WHERE wallet_data.ticker = cmm_data.ticker AND cmm_data.active =1';
                         $result = pg_query($conn, $sql);
                         while ($row = pg_fetch_assoc($result)) :
                             $market_cap = $row['market_cap'];
@@ -191,25 +193,41 @@ $ethPrice = $priceResult['data']['amount'];
                             {
                                 $market_cap = "No data";
                             }
-                            $wallets = getAllByName($row['name']);
-                            if (count($wallets) > 2) {
-                                //Show multiple wallets
-                            }
+                            $ticker = $row['name'];
+                            $wallets = getAllByName($ticker);
                             ?>
                             <tr>
                                 <td><img src="img/<?php echo strtolower($row['logo_url']); ?>" /><?php echo $row['name'] ?> (<?php echo $row['ticker'] ?>)</td>
                                 <td class="marketcap"><?php echo $market_cap; ?></td>
                                 <td class="address-link" data-order="<?php echo $row['balance']; ?>">
+                                    <?php if (count($wallets[$ticker]) === 1) : ?>
                                     <div class="wallet">
                                         <div class="usd first">$<?php echo number_format(($row['balance'] * $ethPrice), 0);?></div>
-                                        <div class="eth"><a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?><i class="fa fa-external-link"></i></a></div>
+                                        <div class="eth">
+                                            <a class="address" href="https://etherscan.io/address/<?php echo $row['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?>
+                                                <i class="fa fa-external-link"></i>
+                                            </a>
+                                        </div>
                                     </div>
+                                    <?php
+                                    elseif (count($wallets[$ticker]) > 1) :
+                                      for ($i = 0;$i < count($wallets[$ticker]);$i++) :
+                                    ?>
+                                      <div class="wallet">
+                                        <div class="usd first">$<?php echo number_format(($wallets[$ticker][$i]['balance'] * $ethPrice), 0); ?></div>
+                                        <div class="eth">
+                                            <a class="address" href="https://etherscan.io/address/<?php echo $wallets[$ticker][$i]['address']; ?>" target="_blank">Ξ<?php echo $row['balance']; ?>
+                                                <i class="fa fa-external-link"></i>
+                                            </a>
+                                        </div>
+                                      </div>
+                                        <?php endfor; ?>
+                                    <?php endif; ?>
                                 </td>
                                 <td><?php echo $row['last_outgoing']; ?></td>
                                 <td><?php echo $row['tx_out']; ?></td>
                             </tr>
                         <?php endwhile; ?>
-
                         </tbody>
                     </table>
                 </div>
