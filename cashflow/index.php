@@ -11,7 +11,7 @@ $username = getenv("DB_USER");
 $password = getenv("DB_PASSWORD");
 
 // Create connection
-$conn_string = "host='127.0.0.1' dbname=postgres user=sanbase password=sanbase";
+$conn_string = "host=".$servername." dbname=". $database ." user=".$username." password=".$password;
 $conn = pg_connect($conn_string);
 if (!$conn) {
     $error = error_get_last();
