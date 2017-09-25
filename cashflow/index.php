@@ -11,13 +11,31 @@ $username = getenv("DB_USER");
 $password = getenv("DB_PASSWORD");
 
 // Create connection
-$conn_string = "host=".$servername." dbname=". $database ." user=".$username." password=".$password;
+$conn_string = "host='127.0.0.1' dbname=postgres user=sanbase password=sanbase";
 $conn = pg_connect($conn_string);
 if (!$conn) {
     $error = error_get_last();
     die("Connection failed: " . $error["message"]);
 }
 
+
+//Functions
+
+
+function getAllByName($name)
+{
+    $wallets = [];
+    global $conn;
+    $sql = "SELECT * FROM wallet_data WHERE name='$name'";
+    $result = pg_query($conn, $sql);
+    while ($row = pg_fetch_assoc($result)) {
+        if(!array_key_exists($wallets[$row['name']], $wallets )){
+        $wallets[$row['name']][] = $row['address'];
+            }
+     }
+
+    return $wallets;
+}
 setlocale(LC_MONETARY, 'en_US');
 
 $ethPrice = 0;
@@ -172,6 +190,10 @@ $ethPrice = $priceResult['data']['amount'];
                             else
                             {
                                 $market_cap = "No data";
+                            }
+                            $wallets = getAllByName($row['name']);
+                            if (count($wallets) > 2) {
+                                //Show multiple wallets
                             }
                             ?>
                             <tr>
