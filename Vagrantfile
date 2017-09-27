@@ -77,14 +77,15 @@ Vagrant.configure("2") do |config|
   # SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
-    nix-channel --add https://nixos.org/channels/nixos-17.09
- nixos
+    nix-channel --add https://nixos.org/channels/nixos-17.09 nixos
     nix-channel --update
     cp /vagrant/vagrant.nix /etc/nixos
     cp /vagrant/vagrant-provision.nix /etc/nixos
     
     nixos-rebuild switch -Q
     nix-collect-garbage -d
+    cd /vagrant
+    su -c "composer install" vagrant
   SHELL
 
 end

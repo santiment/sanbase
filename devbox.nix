@@ -13,6 +13,7 @@
       git
       php
       tcpdump
+      phpPackages.composer
     ];
 
     # List services that you want to enable:
