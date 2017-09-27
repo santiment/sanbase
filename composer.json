@@ -1,0 +1,7 @@
+{
+  "name": "santiment/sanbase",
+  "version": "0.1.0",
+    "require": {
+        "vlucas/phpdotenv": "^2.4"
+    }
+}
