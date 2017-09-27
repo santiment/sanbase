@@ -136,5 +136,6 @@ For more informations see https://db-migrate.readthedocs.io/en/latest/Getting%20
 Deployment
 ----------
 
+
 The master branch is automatically deployed by a cron job to the
 production server. The script runs once every 60 seconds
