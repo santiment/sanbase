@@ -14,7 +14,7 @@ $conn_string = "host=".$servername." dbname=". $database ." user=".$username." p
 $conn = pg_connect($conn_string);
 if (!$conn) {
     $error = error_get_last();
-    die("Connection failed: " . $error["message"]);
+    throw new Exception("Connection failed: " . $error["message"]);
 }
 
 
